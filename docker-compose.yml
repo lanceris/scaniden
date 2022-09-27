@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    ports:
+      - 8001:8000
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PWD=${DB_PWD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0.30
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PWD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PWD}
+    volumes:
+      - mysql-db:/var/lib/mysql
+volumes:
+  mysql-db:
