@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, Query, Depends
 from fastapi_pagination import Page
@@ -37,7 +37,7 @@ def get_range(
 
 @router.get('/{id}',
             summary='Retrieve an identity by ID',
-            response_model=IdentityOut)
+            response_model=Optional[IdentityOut])
 def get_by_id(
     db: Session = Depends(get_db),
     id:int = Query(description='Identity unique identifier')
